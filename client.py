@@ -1,6 +1,16 @@
 import gradio as gr  # Import Gradio module
 import requests  # Import requests module for making HTTP requests
 
+# Define algorithm versions dropdown options
+algorithm_versions = [
+    ('fast-example-v1', 'fast-example-v1'),
+    ('v0', 'v0'),
+    ('v11', 'v11'),
+    ('v12', 'v12'),
+    ('v10', 'v10'),
+    ('fast-example-v0', 'fast-example-v0')
+]
+
 # Define a function to interact with the backend
 def predict(algorithm_version, property_goals, protein_target, decoding_temperature, maximal_sequence_length, number_of_samples, limit, number_of_steps, number_of_initial_points, number_of_optimization_rounds, sampling_variance, samples_used_for_evaluation, maximum_number_of_sampling_steps, seed):
     # Send a POST request to the backend with the input data as JSON
@@ -26,7 +36,7 @@ def predict(algorithm_version, property_goals, protein_target, decoding_temperat
 iface = gr.Interface(
     predict,
     [
-        "dropdown", [("fast-example-v1", "fast-example-v1"), ("v0", "v0"), ("v11", "v11"), ("v12", "v12"), ("v10", "v10"), ("fast-example-v0", "fast-example-v0")],
+        "dropdown", algorithm_versions,  # Use the algorithm_versions list here
         "checkboxgroup", ["qed"],
         "textbox",
         "slider", (0.5, 2),
@@ -41,6 +51,6 @@ iface = gr.Interface(
         "slider", (1, 64),
         "number"
     ],
-    "json"  # Specify the output type as JSON
+    "json"
 )
 iface.launch()  # Launch the Gradio interface
