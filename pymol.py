@@ -39,8 +39,7 @@ iface = gr.Interface(
     inputs="text",  # Use 'text' for simple text input
     outputs="image",  # Specify output type as image
     title="Protein to Molecule Generator",
-    description="Enter a protein sequence to generate molecules.",
-    capture_session=True  # Captures the Gradio session for deployment
+    description="Enter a protein sequence to generate molecules."
 )
 
 # Launch Gradio interface
