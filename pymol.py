@@ -25,7 +25,7 @@ def generate_molecules(protein_sequence):
         5,  # Seed
         api_name="/predict"
     )
-    return result
+    return smiles_to_image(result)
 
 # Function to convert SMILES to molecule image
 def smiles_to_image(smiles):
@@ -36,11 +36,10 @@ def smiles_to_image(smiles):
 # Define Gradio interface
 iface = gr.Interface(
     fn=generate_molecules,
-    inputs="text",
-    outputs=gr.outputs.Image(type="numpy"),
+    inputs="text",  # Use 'text' for simple text input
+    outputs="image",  # Specify output type as image
     title="Protein to Molecule Generator",
     description="Enter a protein sequence to generate molecules.",
-    example="MAEGEITTFTALTEKFNLPPGNYKKPKLLYCSNGGHFLRILPDGTVDGTRDRSDQHIQLQLSAESVGEVYIKSTETGQYLAMDTSGLLYGSQTPSEECLFLERLEENHYNTYTSKKHAEKNWFVGLKKNGSCKRGPRTHYGQKAILFLPLPV",
     capture_session=True  # Captures the Gradio session for deployment
 )
 
