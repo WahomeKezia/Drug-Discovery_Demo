@@ -77,6 +77,7 @@ def smiles_to_image(smiles):
     img = Draw.MolToImage(mol)
     return img
 
+
 # Convert SMILES to image and display it
 image = smiles_to_image(result)
 image.show()
