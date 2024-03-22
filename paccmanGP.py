@@ -18,4 +18,6 @@ result = client.predict(
 		5,	# int | float  in 'Seed' Number component
 		api_name="/predict"
 )
+with open("output.html", "w") as f:
+    f.write(result)
 print(result)
