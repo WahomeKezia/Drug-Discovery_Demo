@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Protein Visualization</title>
+    <script src="https://unpkg.com/ngl"></script>
+</head>
+<body>
+    <h1>Protein Visualization</h1>
+    <label for="pdb_url">Enter URL for PDB file:</label><br>
+    <input type="text" id="pdb_url"><br>
+    <button onclick="visualize()">Visualize</button><br>
+    <div id="viewer" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        function visualize() {
+            var pdbUrl = document.getElementById('pdb_url').value;
+            fetchPdb(pdbUrl);
+        }
+
+        function fetchPdb(url) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch PDB data');
+                    }
+                    return response.text();
+                })
+                .then(pdbData => {
+                    visualizePdb(pdbData);
+                })
+                .catch(error => {
+                    console.error('Error fetching PDB data:', error);
+                });
+        }
+
+        function visualizePdb(pdbData) {
+            var stage = new NGL.Stage('viewer');
+            stage.loadFile(new Blob([pdbData]), { ext: 'pdb' }).then(function (component) {
+                component.addRepresentation('cartoon');
+                stage.autoView();
+            });
+        }
+    </script>
+</body>
+</html>
